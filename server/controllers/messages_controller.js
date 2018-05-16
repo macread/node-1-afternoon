@@ -14,19 +14,22 @@ module.exports = {
     },
 
     update: (req, res)=> {
-        const messageIdx = messages.findIndex( (message)=> { message.id == req.params.id })
+        const messageIdx = messages.findIndex( function (message) { 
+            return message.id == req.params.id 
+        })
         messages[messageIdx] = {
-            id: message.id,
+            id: messages[messageIdx].id,
             text: req.body.text || message.text,
-            time: message.time
+            time: messages[messageIdx].time
         }
         res.status(200).send(messages);
     },
 
     delete: (req, res)=> {
-        const messageIdx = messages.findIndex( (message)=> { message.id == req.params.id })
-        messages.slice(messageIdx,1);
+        const messageIdx = messages.findIndex( function (message) { 
+            return message.id == req.params.id 
+        })
+        messages.splice(messageIdx,1);
         res.status(200).send(messages)
     }
-
 }
